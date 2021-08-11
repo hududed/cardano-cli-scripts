@@ -10,8 +10,16 @@ read -p 'Receiving wallet name: ' TO_WALLET_NAME
 
 TO_WALLET_ADDRESS=$(cat ./wallets/$TO_WALLET_NAME.addr)
 
-echo $FROM_UTXO
-echo $FROM_WALLET_NAME
-echo $FROM_WALLET_ADDRESS
-echo $FROM_BALANCE
-echo $TO_WALLET_ADDRESS
+$CARDANO_CLI transaction build \
+--tx-in ${FROM_UTXO} \
+--tx-out ${TO_WALLET_ADDRESS}+${LOVELACE_TO_SEND} \
+--change-address ${FROM_WALLET_ADDRESS} \
+--out-file tx.raw \
+--alonzo-era \
+--testnet-magic $TESTNET_MAGIC_NUM
+
+# echo $FROM_UTXO
+# echo $FROM_WALLET_NAME
+# echo $FROM_WALLET_ADDRESS
+# echo $FROM_BALANCE
+# echo $TO_WALLET_ADDRESS
