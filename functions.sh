@@ -17,3 +17,19 @@ function getInputTx() {
         SELECTED_UTXO_LOVELACE=$(echo $TX_ROW | awk '{ print $3 }') # current balance
 }
 
+walletAddress() {
+        WALLET_ADDRESS=$(cat ./wallets/$1.addr)
+}
+
+function section {
+  echo "============================================================================================"
+  echo $1
+  echo "============================================================================================"
+}
+
+function removeTxFiles() {
+  rm -f tx.raw
+  rm -f tx.signed
+}
+
+
