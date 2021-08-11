@@ -18,6 +18,13 @@ $CARDANO_CLI transaction build \
 --alonzo-era \
 --testnet-magic $TESTNET_MAGIC_NUM
 
+$CARDANO_CLI transaction sign \
+--tx-body-file tx.raw \
+--signing-key-file ./wallets/$FROM_WALLET_NAME.skey \
+--out-file tx.signed
+
+$CARDANO_CLI transaction submit --tx-file tx.signed --testnet-magic $TESTNET_MAGIC_NUM
+
 # echo $FROM_UTXO
 # echo $FROM_WALLET_NAME
 # echo $FROM_WALLET_ADDRESS
