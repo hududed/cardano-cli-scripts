@@ -5,6 +5,7 @@ function getInputTx() {
         then
                 read -p 'Wallet Name: ' SELECTED_WALLET_NAME
         else
+                echo 'Wallet Name: ' $1
                 SELECTED_WALLET_NAME=$1 # e.g. ./sendFromWallet.sh main --> $1 = main
         fi
         ./balance.sh $SELECTED_WALLET_NAME > $BALANCE_FILE
@@ -19,6 +20,16 @@ function getInputTx() {
 
 walletAddress() {
         WALLET_ADDRESS=$(cat ./wallets/$1.addr)
+}
+
+setDatumHash() {
+        DATUM_HASH=$(cardano-cli transaction hash-script-data --script-data-value $DATUM_VALUE)
+        #return $(cardano-cli transaction hash-script-data --script-data-value $1)
+}
+
+getScriptAddress() {
+        SCRIPT_ADDRESS=$(cardano-cli address build --payment-script-file ./scripts/$1.plutus --testnet-magic $TESTNET_MAGIC_NUM)
+        echo $SCRIPT_ADDRESS > ./wallets/$1.addr
 }
 
 function section {
