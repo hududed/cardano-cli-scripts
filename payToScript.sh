@@ -14,12 +14,12 @@ $CARDANO_CLI transaction build \
 --tx-out ${TO_ADDR}+${PAYMENT} \
 --tx-out-datum-hash ${DATUM_HASH} \
 --change-address ${FROM_ADDR} \
---out-file tx.raw \
+--out-file tx.build \
 --alonzo-era \
 --testnet-magic $TESTNET_MAGIC_NUM
 
 $CARDANO_CLI transaction sign \
---tx-body-file tx.raw \
+--tx-body-file tx.build \
 --signing-key-file ./wallets/${SELECTED_WALLET_NAME}.skey \
 --testnet-magic $TESTNET_MAGIC_NUM \
 --out-file tx.signed \
